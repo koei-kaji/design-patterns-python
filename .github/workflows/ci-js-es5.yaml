@@ -12,44 +12,41 @@ on:
 jobs:
   check-code:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./js/es5/
     strategy:
       matrix:
         node-version: [16.14]
-    env:
-      WORKDIR: ./js/es5/
-      PIP_VERSION: 21.2.4
+    # env:
+    #   WORKDIR: ./js/es5/
     steps:
       - uses: actions/checkout@v2
 
       - name: Set up Node ${{ matrix.node-version }}
         id: setup-node
         uses: actions/setup-node@v2
-        working-directory: ${{ env.WORKDIR }}
         with:
           node-version: ${{ matrix.node-version }}
           cache: npm
 
       - name: Install dependencies
         id: install-dependencies
-        working-directory: ${{ env.WORKDIR }}
         run: |
           npm install
 
       - name: Check format js code
         id: check-format-js-code
-        working-directory: ${{ env.WORKDIR }}
         run: |
           make format-check
           
       - name: Check lint js code
         id: check-lint-js-code
-        working-directory: ${{ env.WORKDIR }}
         run: |
           make lint
       
       - name: Test with jasmine
         id: test-with-jasmine
-        working-directory: ${{ env.WORKDIR }}
         run: |
           make test
 
