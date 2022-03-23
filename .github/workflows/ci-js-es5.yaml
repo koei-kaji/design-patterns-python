@@ -1,0 +1,94 @@
+name: CI For Javascript ES5
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "js/es5/**"
+      - ".github/workflows/ci-js-es5.yaml"
+      - "!**.md"
+
+jobs:
+  check-code:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.14]
+    env:
+      WORKDIR: ./js/es5/
+      PIP_VERSION: 21.2.4
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node ${{ matrix.node-version }}
+        id: setup-node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      - name: Install dependencies
+        id: install-dependencies
+        working-directory: ${{ env.WORKDIR }}
+        run: |
+          npm install
+
+      - name: Check format js code
+        id: check-format-js-code
+        working-directory: ${{ env.WORKDIR }}
+        run: |
+          make format-check
+          
+      - name: Check lint js code
+        id: check-lint-js-code
+        working-directory: ${{ env.WORKDIR }}
+        run: |
+          make lint
+      
+      - name: Test with jasmine
+        id: test-with-jasmine
+        working-directory: ${{ env.WORKDIR }}
+        run: |
+          make test
+
+      # # NOTE: https://github.com/marketplace/actions/hadolint-action
+      # # NOTE: use official github action cause it is simpler
+      # - name: Lint dockerfile
+      #   id: lint-dockerfile
+      #   uses: hadolint/hadolint-action@v1.6.0
+      #   env:
+      #     DOCKER_CONTENT_TRUST: 0
+      #   with:
+      #     dockerfile: ${{ env.WORKDIR }}/Dockerfile
+
+      # # NOTE: https://github.com/goodwithtech/dockle#debianubuntu
+      # - name: Install dockle
+      #   id: install-dockle
+      #   run: |
+      #     VERSION=$(
+      #     curl --silent "https://api.github.com/repos/goodwithtech/dockle/releases/latest" | \
+      #     grep '"tag_name":' | \
+      #     sed -E 's/.*"v([^"]+)".*/\1/' \
+      #     ) && curl -L -o dockle.deb https://github.com/goodwithtech/dockle/releases/download/v${VERSION}/dockle_${VERSION}_Linux-64bit.deb
+      #     sudo dpkg -i dockle.deb && rm dockle.deb
+
+      # # NOTE: https://aquasecurity.github.io/trivy/v0.18.3/installation/#debianubuntu
+      # # NOTE: We dont't use official github action cause it is simpler 
+      # #       >> https://github.com/aquasecurity/trivy-action
+      # - name: Install trivy
+      #   id: install-trivy
+      #   run: |
+      #     sudo apt-get install wget apt-transport-https gnupg lsb-release
+      #     wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+      #     echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
+      #     sudo apt-get update
+      #     sudo apt-get install trivy
+      
+      # - name: Vulnerability scanning for docker image
+      #   id: vulnerability-scanning-for-docker-image
+      #   working-directory: ${{ env.WORKDIR }}
+      #   run: |
+      #     make scan-docker
+      
+      # # TODO: slack web hook
