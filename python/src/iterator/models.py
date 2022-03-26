@@ -51,7 +51,7 @@ class BookShelf(AggregateIF):
         return self._last
 
     def iterator(self) -> BookShelfIterator:
-        return BookShelfIterator(self)
+        return BookShelfIterator(bookshelf=self)
 
 
 class ExtendableBookShelf(AggregateIF):
@@ -67,7 +67,7 @@ class ExtendableBookShelf(AggregateIF):
         return len(self._books)
 
     def iterator(self) -> ExtendableBookShelfIterator:
-        return ExtendableBookShelfIterator(self)
+        return ExtendableBookShelfIterator(bookshelf=self)
 
 
 class BookShelfIterator(IteratorIF):

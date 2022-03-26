@@ -11,7 +11,7 @@ class PrintBanner(PrintABC):
 
     def __init__(self, string: str, **data: Any) -> None:
         super().__init__(**data)
-        self._banner = Banner(string)
+        self._banner = Banner(string=string)
 
     def print_weak(self) -> None:
         self._banner.show_with_paren()
