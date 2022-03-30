@@ -1,7 +1,9 @@
+import pytest
+from pydantic import ValidationError
 from pytest import CaptureFixture
 
-from src.template_method.custom_type import Char
 from src.template_method.display import CharDisplay, StringDisplay
+from src.template_method.types import Char
 from tests.conftest import assert_capture_str
 
 
@@ -10,6 +12,11 @@ class TestCharDisplay:
         display = CharDisplay(char=Char("H"))
         display.display()
         assert_capture_str(capfd, ("<<HHHHH>>\n", ""))
+
+    @pytest.mark.parametrize(("char"), [("", "two")])
+    def test_exc_not_char(self, char: str) -> None:
+        with pytest.raises(ValidationError):
+            CharDisplay(char=Char(char))
 
 
 class TestStringDisplay:

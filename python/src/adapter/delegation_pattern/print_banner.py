@@ -2,6 +2,7 @@ from typing import Any
 
 from pydantic import PrivateAttr
 
+from ...common.custom_pydantic import BaseFrozenConfig
 from ..banner import Banner
 from .print import PrintABC
 
@@ -18,3 +19,6 @@ class PrintBanner(PrintABC):
 
     def print_strong(self) -> None:
         self._banner.show_with_aster()
+
+    class Config(BaseFrozenConfig):
+        pass

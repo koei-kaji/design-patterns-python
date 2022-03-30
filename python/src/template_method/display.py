@@ -1,9 +1,10 @@
 import abc
-from typing import Any, final
+from typing import final
 
-from pydantic import BaseModel, PrivateAttr
+from pydantic import BaseModel, StrictStr
 
-from .custom_type import Char
+from ..common.custom_pydantic import BaseFrozenConfig
+from .types import Char
 
 
 class DisplayABC(BaseModel, abc.ABC):
@@ -28,35 +29,33 @@ class DisplayABC(BaseModel, abc.ABC):
 
 
 class CharDisplay(DisplayABC):
-    _char: Char = PrivateAttr()
-
-    def __init__(self, char: Char, **data: Any) -> None:
-        super().__init__(**data)
-        self._char = char
+    char: Char
 
     def open(self) -> None:
         print("<<", end="")
 
     def print(self) -> None:
-        print(self._char, end="")
+        print(self.char, end="")
 
     def close(self) -> None:
         print(">>", end="\n")
 
+    class Config(BaseFrozenConfig):
+        pass
+
 
 class StringDisplay(DisplayABC):
-    _string: str = PrivateAttr()
-
-    def __init__(self, string: str, **data: Any) -> None:
-        super().__init__(**data)
-        self._string = string
+    string: StrictStr
 
     def open(self) -> None:
         print("")
-        print(f"+{'-' * len(self._string)}+", end="\n")
+        print(f"+{'-' * len(self.string)}+", end="\n")
 
     def print(self) -> None:
-        print(f"|{self._string}|", end="\n")
+        print(f"|{self.string}|", end="\n")
 
     def close(self) -> None:
-        print(f"+{'-' * len(self._string)}+")
+        print(f"+{'-' * len(self.string)}+")
+
+    class Config(BaseFrozenConfig):
+        pass
