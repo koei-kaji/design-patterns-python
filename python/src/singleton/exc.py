@@ -1,0 +1,2 @@
+class InstantiationError(Exception):
+    pass
