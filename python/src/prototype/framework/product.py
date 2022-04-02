@@ -3,10 +3,10 @@ from __future__ import annotations
 import abc
 from typing import final
 
-from pydantic import BaseModel
+from ...common.custom_pydantic.model import ABCModel
 
 
-class ProductABC(BaseModel, abc.ABC):
+class ProductABC(ABCModel):
     @abc.abstractmethod
     def use(self, string: str) -> None:
         pass

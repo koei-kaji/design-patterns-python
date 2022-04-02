@@ -4,7 +4,7 @@ from typing import Any, List
 
 from pydantic import BaseModel, PrivateAttr
 
-from ..common.custom_pydantic import BaseFrozenConfig
+from ..common.custom_pydantic.config import BaseFrozenConfig
 from .exc import InstantiationError
 
 

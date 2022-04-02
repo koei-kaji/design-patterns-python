@@ -1,9 +1,9 @@
 import abc
 
-from pydantic import BaseModel
+from ...common.custom_pydantic.model import ABCModel
 
 
-class ProductABC(BaseModel, abc.ABC):
+class ProductABC(ABCModel):
     @abc.abstractmethod
     def use(self) -> None:
         pass

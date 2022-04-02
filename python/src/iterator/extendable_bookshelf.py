@@ -6,7 +6,7 @@ from pydantic import PrivateAttr
 
 from src.iterator.iterator import IteratorABC
 
-from ..common.custom_pydantic import BaseConfig
+from ..common.custom_pydantic.config import BaseConfig
 from .aggregate import AggregateABC
 from .book import Book
 
@@ -26,7 +26,7 @@ class ExtendableBookShelf(AggregateABC):
     def iterator(self) -> ExtendableBookShelfIterator:
         return ExtendableBookShelfIterator(bookshelf=self)
 
-    class Config(BaseConfig):
+    class Config(AggregateABC.Config, BaseConfig):
         pass
 
 
@@ -47,5 +47,5 @@ class ExtendableBookShelfIterator(IteratorABC):
 
         return book
 
-    class Config(BaseConfig):
+    class Config(IteratorABC.Config, BaseConfig):
         pass

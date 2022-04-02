@@ -2,7 +2,7 @@ from typing import Any
 
 from pydantic import StrictInt, StrictStr
 
-from ...common.custom_pydantic import BaseFrozenConfig
+from ...common.custom_pydantic.config import BaseFrozenConfig
 from ..framework.product import ProductABC
 
 
@@ -19,7 +19,7 @@ class IDCard(ProductABC):
     def get_owner(self) -> str:
         return self.owner
 
-    class Config(BaseFrozenConfig):
+    class Config(ProductABC.Config, BaseFrozenConfig):
         pass
 
 
@@ -40,5 +40,5 @@ class IDCardWithSerial(ProductABC):
     def get_serial(self) -> int:
         return self.serial
 
-    class Config(BaseFrozenConfig):
+    class Config(ProductABC.Config, BaseFrozenConfig):
         pass

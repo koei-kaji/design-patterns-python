@@ -14,3 +14,6 @@ class PrintBanner(Banner, PrintABC):
 
     def print_strong(self) -> None:
         self.show_with_aster()
+
+    class Config(Banner.Config, PrintABC.Config):
+        pass

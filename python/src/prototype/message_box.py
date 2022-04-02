@@ -1,4 +1,4 @@
-from ..common.types import Char
+from ..common.custom_pydantic.types import Char
 from .framework.product import ProductABC
 
 

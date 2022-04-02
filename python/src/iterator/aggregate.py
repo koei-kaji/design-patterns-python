@@ -1,11 +1,10 @@
 import abc
 
-from pydantic import BaseModel
-
+from ..common.custom_pydantic.model import ABCModel
 from .iterator import IteratorABC
 
 
-class AggregateABC(BaseModel, abc.ABC):
+class AggregateABC(ABCModel):
     @abc.abstractmethod
     def iterator(self) -> IteratorABC:
         pass

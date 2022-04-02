@@ -1,9 +1,9 @@
 import abc
 
-from pydantic import BaseModel
+from ..common.custom_pydantic.model import ABCModel
 
 
-class IteratorABC(BaseModel, abc.ABC):
+class IteratorABC(ABCModel):
     @abc.abstractmethod
     def has_next(self) -> bool:
         pass
