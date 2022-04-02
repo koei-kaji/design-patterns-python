@@ -1,9 +1,9 @@
 import abc
 
-from pydantic import BaseModel
+from ...common.custom_pydantic.model import ABCModel
 
 
-class PrintABC(BaseModel, abc.ABC):
+class PrintABC(ABCModel):
     @abc.abstractmethod
     def print_weak(self) -> None:
         pass

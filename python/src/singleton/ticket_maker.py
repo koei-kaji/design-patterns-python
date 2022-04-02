@@ -1,6 +1,6 @@
 from pydantic import PrivateAttr
 
-from ..common.custom_pydantic import BaseConfig
+from ..common.custom_pydantic.config import BaseConfig
 from ._singleton import BaseSingleton
 
 

@@ -4,7 +4,7 @@ from typing import Any, List
 
 from pydantic import PrivateAttr
 
-from ..common.custom_pydantic import BaseConfig
+from ..common.custom_pydantic.config import BaseConfig
 from .aggregate import AggregateABC
 from .book import Book
 from .iterator import IteratorABC
@@ -32,7 +32,7 @@ class BookShelf(AggregateABC):
     def iterator(self) -> BookShelfIterator:
         return BookShelfIterator(bookshelf=self)
 
-    class Config(BaseConfig):
+    class Config(AggregateABC.Config, BaseConfig):
         pass
 
 
@@ -53,5 +53,5 @@ class BookShelfIterator(IteratorABC):
 
         return book
 
-    class Config(BaseConfig):
+    class Config(IteratorABC.Config, BaseConfig):
         pass

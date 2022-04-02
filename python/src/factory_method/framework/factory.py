@@ -1,12 +1,11 @@
 import abc
 from typing import final
 
-from pydantic import BaseModel
-
+from ...common.custom_pydantic.model import ABCModel
 from .product import ProductABC
 
 
-class FactoryABC(BaseModel, abc.ABC):
+class FactoryABC(ABCModel):
     @final
     def create(self, owner: str) -> ProductABC:
         product: ProductABC = self.create_product(owner)

@@ -1,13 +1,14 @@
 import abc
 from typing import final
 
-from pydantic import BaseModel, StrictStr
+from pydantic import StrictStr
 
-from ..common.custom_pydantic import BaseFrozenConfig
-from .types import Char
+from ..common.custom_pydantic.config import BaseFrozenConfig
+from ..common.custom_pydantic.model import ABCModel
+from ..common.custom_pydantic.types import Char
 
 
-class DisplayABC(BaseModel, abc.ABC):
+class DisplayABC(ABCModel):
     @abc.abstractmethod
     def open(self) -> None:
         pass
@@ -40,7 +41,7 @@ class CharDisplay(DisplayABC):
     def close(self) -> None:
         print(">>", end="\n")
 
-    class Config(BaseFrozenConfig):
+    class Config(DisplayABC.Config, BaseFrozenConfig):
         pass
 
 
@@ -57,5 +58,5 @@ class StringDisplay(DisplayABC):
     def close(self) -> None:
         print(f"+{'-' * len(self.string)}+")
 
-    class Config(BaseFrozenConfig):
+    class Config(DisplayABC.Config, BaseFrozenConfig):
         pass

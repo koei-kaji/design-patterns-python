@@ -2,8 +2,8 @@ import pytest
 from pydantic import ValidationError
 from pytest import CaptureFixture
 
+from src.common.custom_pydantic.types import Char
 from src.template_method.display import CharDisplay, StringDisplay
-from src.template_method.types import Char
 from tests.conftest import assert_capture_str
 
 

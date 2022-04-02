@@ -1,6 +1,6 @@
 from pytest import CaptureFixture
 
-from src.common.types import Char
+from src.common.custom_pydantic.types import Char
 from src.prototype.framework.manager import Manager
 from src.prototype.framework.product import ProductABC
 from src.prototype.message_box import MessageBox

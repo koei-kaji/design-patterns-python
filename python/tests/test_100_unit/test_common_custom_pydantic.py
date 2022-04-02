@@ -8,8 +8,17 @@ from pydantic import (
     ValidationError,
 )
 
-from src.common.custom_pydantic import BaseConfig, BaseFrozenConfig
+from src.common.custom_pydantic.config import ABCConfig, BaseConfig, BaseFrozenConfig
 from tests.conftest import assert_pydantic_config
+
+
+class SubDummyModel(BaseModel):
+    prop_str: StrictStr = "sub"
+
+
+class SubDummyModelWithABCConfig(SubDummyModel):
+    class Config(ABCConfig):
+        pass
 
 
 class DummyModel(BaseModel):
@@ -17,6 +26,14 @@ class DummyModel(BaseModel):
     prop_int: StrictInt = 999
     prop_bool: StrictBool = True
     _prop_private_str: str = PrivateAttr(default="private")
+
+
+class DummyModelAddedSubDummyModel(DummyModel):
+    sub: SubDummyModel = SubDummyModel()
+
+
+class DummyModelAddedSubDummyModelWithABCConfig(DummyModel):
+    sub: SubDummyModelWithABCConfig = SubDummyModelWithABCConfig()
 
 
 class InvalidDefaultDummyModel(BaseModel):
@@ -68,6 +85,24 @@ class TestPydanticBaseConfig:
         model = DummyModel()
         model.prop_str = updated_str
         assert model.prop_str == updated_str
+
+    def test_copy_on_model_validation_true(self) -> None:
+        # ネストされるモデルは再構築される
+        sub = SubDummyModel()
+        model = DummyModelAddedSubDummyModel(sub=sub)
+        assert id(sub) != id(model.sub)
+
+
+class TestABCConfig:
+    def test_config(self) -> None:
+        model = SubDummyModelWithABCConfig()
+        assert_pydantic_config(model.Config, ABCConfig)
+
+    def test_copy_on_model_validation_false(self) -> None:
+        # ネストされるモデルは再構築されない
+        sub = SubDummyModelWithABCConfig()
+        model = DummyModelAddedSubDummyModelWithABCConfig(sub=sub)
+        assert id(sub) == id(model.sub)
 
 
 class TestBaseConfig:

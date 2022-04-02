@@ -2,7 +2,7 @@ from typing import List, cast
 
 from pydantic import PrivateAttr
 
-from ...common.custom_pydantic import BaseConfig
+from ...common.custom_pydantic.config import BaseConfig
 from ..framework.factory import FactoryABC
 from ..framework.product import ProductABC
 from .idcard import IDCard, IDCardWithSerial
@@ -20,7 +20,7 @@ class IDCardFactory(FactoryABC):
     def get_owners(self) -> List[IDCard]:
         return self._owners
 
-    class Config(BaseConfig):
+    class Config(FactoryABC.Config, BaseConfig):
         pass
 
 
@@ -39,5 +39,5 @@ class IDCardWithSerialFactory(FactoryABC):
     def get_owners(self) -> List[IDCard]:
         return self._owners
 
-    class Config(BaseConfig):
+    class Config(FactoryABC.Config, BaseConfig):
         pass
