@@ -1,7 +1,9 @@
-from typing import Tuple, Type
+from typing import Generator, Tuple, Type
 
+import pytest
+from py._path.local import LocalPath
 from pydantic import BaseConfig
-from pytest import CaptureFixture
+from pytest import CaptureFixture, MonkeyPatch
 
 
 def assert_capture_str(capfd: CaptureFixture[str], expected: Tuple[str, str]) -> None:
@@ -44,3 +46,15 @@ def assert_pydantic_config(
     )
     assert config_a.copy_on_model_validation == config_b.copy_on_model_validation
     assert config_a.smart_union == config_b.smart_union
+
+
+class ChdirToTmpdirFixture:
+    pass
+
+
+@pytest.fixture(scope="function")
+def chdir_to_tmpdir(
+    tmpdir: LocalPath, monkeypatch: MonkeyPatch
+) -> Generator[None, None, None]:
+    monkeypatch.chdir(tmpdir)
+    yield
