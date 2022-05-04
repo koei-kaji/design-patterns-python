@@ -1,9 +1,8 @@
 import pytest
-from py._path.local import LocalPath
-from pytest import MonkeyPatch
 
 from src.abstract_factory.factory.factory import FactoryABC
 from src.abstract_factory.factory.page import DEFAULT_ENCODING
+from tests.conftest import ChdirToTmpdirFixture
 
 
 @pytest.mark.parametrize(
@@ -14,11 +13,10 @@ from src.abstract_factory.factory.page import DEFAULT_ENCODING
     ],
 )
 class TestFactory:
+    # pylint: disable=unused-argument
     def test_normal(
-        self, tmpdir: LocalPath, monkeypatch: MonkeyPatch, class_name: str
+        self, chdir_to_tmpdir: ChdirToTmpdirFixture, class_name: str
     ) -> None:
-        monkeypatch.chdir(tmpdir)
-
         factory = FactoryABC.get_factory(class_name)
 
         link_asahi = factory.create_link("朝日新聞", "http://www.asahi.com/")
@@ -51,11 +49,10 @@ class TestFactory:
             print("")
             print("".join(f.readlines()))
 
+    # pylint: disable=unused-argument
     def test_yahoo(
-        self, tmpdir: LocalPath, monkeypatch: MonkeyPatch, class_name: str
+        self, chdir_to_tmpdir: ChdirToTmpdirFixture, class_name: str
     ) -> None:
-        monkeypatch.chdir(tmpdir)
-
         factory = FactoryABC.get_factory(class_name)
         page = factory.create_yahoo_page()
         result = page.output()

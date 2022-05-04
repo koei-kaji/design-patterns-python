@@ -1,13 +1,12 @@
 import os
 
 import pytest
-from py._path.local import LocalPath
-from pytest import MonkeyPatch
 
 from src.builder.director import Director
 from src.builder.html_builder import DEFAULT_ENCODING, HTMLBuilder
 from src.builder.text_builder import TextBuilder
 from src.builder.tk_builder import TkBuilder
+from tests.conftest import ChdirToTmpdirFixture
 
 
 class TestTextBuilder:
@@ -22,9 +21,8 @@ class TestTextBuilder:
 
 
 class TestHTMLBuilder:
-    def test_normal(self, tmpdir: LocalPath, monkeypatch: MonkeyPatch) -> None:
-        monkeypatch.chdir(tmpdir)
-
+    # pylint: disable=unused-argument
+    def test_normal(self, chdir_to_tmpdir: ChdirToTmpdirFixture) -> None:
         html_builder = HTMLBuilder()
         director = Director(builder=html_builder)
         director.construct_()
