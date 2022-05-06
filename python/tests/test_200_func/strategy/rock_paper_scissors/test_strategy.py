@@ -30,7 +30,7 @@ class TestWinningStrategy:
         strategy.study(False)
         assert strategy._won is False
 
-        strategy.study(False)  # type: ignore
+        strategy.study(False)  # type: ignore[unreachable]
         strategy.study(True)
         assert strategy._won is True
 
