@@ -13,7 +13,7 @@ format-check:
 .PHONY: lint
 lint:
 	@poetry run pylint -d C,R,fixme $(PACKAGE_NAME) tests
-	@poetry run mypy $(PACKAGE_NAME) tests
+	@poetry run mypy --show-error-codes $(PACKAGE_NAME) tests
 
 .PHONY: test
 test:

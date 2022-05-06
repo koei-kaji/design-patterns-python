@@ -44,7 +44,7 @@ class ComparableList(list[ListType]):
     def _validate_comparable(cls, v1: ListType, v2: ListType) -> None:
         # NOTE: https://docs.python.org/3/library/functools.html#functools.total_ordering
         try:
-            _ = v1 <= v2  # type: ignore
+            _ = v1 <= v2  # type: ignore[operator]
         except ValidationError as error:
             raise ValueError("must be comparable") from error
 

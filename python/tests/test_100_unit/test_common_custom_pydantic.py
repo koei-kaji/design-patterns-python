@@ -37,9 +37,9 @@ class DummyModelAddedSubDummyModelWithABCConfig(DummyModel):
 
 
 class InvalidDefaultDummyModel(BaseModel):
-    prop_str: StrictStr = 999  # type: ignore
-    prop_int: StrictInt = "999"  # type: ignore
-    prop_bool: StrictBool = "True"  # type: ignore
+    prop_str: StrictStr = 999  # type: ignore[assignment]
+    prop_int: StrictInt = "999"  # type: ignore[assignment]
+    prop_bool: StrictBool = "True"  # type: ignore[assignment]
 
 
 class DummyModelWithBaseConfig(DummyModel):
@@ -71,8 +71,8 @@ class TestPydanticBaseConfig:
         # 最初の一回以外、型チェックが行われない
         updated_value = 999
         model = DummyModel()
-        model.prop_str = updated_value  # type:ignore
-        assert model.prop_str == updated_value  # type: ignore
+        model.prop_str = updated_value  # type:ignore[assignment]
+        assert model.prop_str == updated_value  # type: ignore[comparison-overlap]
 
     def test_validate_all_false(self) -> None:
         # 初期値のチェックが行われない
