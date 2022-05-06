@@ -1,4 +1,4 @@
-from typing import cast
+from typing import Final, Iterable, List, cast
 
 import pytest
 
@@ -6,8 +6,9 @@ from src.iterator.book import Book
 from src.iterator.bookshelf import BookShelf
 from src.iterator.extendable_bookshelf import ExtendableBookShelf
 from src.iterator.iterator import IteratorABC
+from src.iterator.pythonic_bookshelf import PythonicBookShelf
 
-BOOKS = [
+BOOKS: Final[List[str]] = [
     "Around the World in 80 Days",
     "Bible",
     "Cinderella",
@@ -50,3 +51,15 @@ class TestExtendableBookshelfIterator:
             bk: Book = cast(Book, bookshelf_iter.next())
             assert bk.name == BOOKS[count]
             count += 1
+
+
+class TestPythonicBookShelf:
+    def test_normal(self) -> None:
+        bookshelf = PythonicBookShelf()
+        for book in BOOKS:
+            bookshelf.append_book(Book(name=book))
+
+        assert iter(bookshelf) is not None
+        assert isinstance(bookshelf, Iterable) is True
+        for i, bk in enumerate(bookshelf):
+            assert bk.name == BOOKS[i]
