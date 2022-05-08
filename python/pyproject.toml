@@ -7,6 +7,7 @@ authors = ["koei-kaji <koei.kaji@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.9"
 pydantic = "^1.9.0"
+multimethod = "^1.8"
 
 [tool.poetry.dev-dependencies]
 pytest = "*"
