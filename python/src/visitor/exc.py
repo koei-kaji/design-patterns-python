@@ -1,0 +1,2 @@
+class FileTreatmentException(Exception):
+    pass
