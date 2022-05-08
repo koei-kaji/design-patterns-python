@@ -7,7 +7,7 @@ from .book import Book
 
 class PythonicBookShelf(BaseModel, Iterable[Book]):
     _books: List[Book] = PrivateAttr(default=[])
-    _index: int = PrivateAttr(default=0)
+    _index: int = PrivateAttr()
 
     def get_book_at(self, index: int) -> Book:
         return self._books[index]
@@ -19,6 +19,7 @@ class PythonicBookShelf(BaseModel, Iterable[Book]):
         return len(self._books)
 
     def __iter__(self) -> Iterator[Book]:  # type: ignore[override]
+        self._index = 0
         return self
 
     def __next__(self) -> Book:
