@@ -1,10 +1,10 @@
 import abc
 
-from ...common.custom_pydantic.model import ABCModel
+from ...common.model import Interface
 from .hand import Hand_
 
 
-class StrategyABC(ABCModel):
+class StrategyIF(Interface):
     @abc.abstractmethod
     def next_hand(self) -> Hand_:
         pass

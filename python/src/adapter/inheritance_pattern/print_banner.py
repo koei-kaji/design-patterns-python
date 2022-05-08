@@ -1,10 +1,10 @@
 from typing import Any
 
 from ..banner import Banner
-from .print import PrintABC
+from .print import PrintIF
 
 
-class PrintBanner(Banner, PrintABC):
+class PrintBanner(Banner, PrintIF):
     def __init__(self, string: str, **data: Any) -> None:
         # pylint: disable=useless-super-delegation
         super().__init__(string=string, **data)
@@ -15,5 +15,5 @@ class PrintBanner(Banner, PrintABC):
     def print_strong(self) -> None:
         self.show_with_aster()
 
-    class Config(Banner.Config, PrintABC.Config):
+    class Config(Banner.Config):
         pass

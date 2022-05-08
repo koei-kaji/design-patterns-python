@@ -1,10 +1,10 @@
 import abc
 
-from ..common.custom_pydantic.model import ABCModel
-from .iterator import IteratorABC
+from ..common.model import Interface
+from .iterator import IteratorIF
 
 
-class AggregateABC(ABCModel):
+class AggregateIF(Interface):
     @abc.abstractmethod
-    def iterator(self) -> IteratorABC:
+    def iterator(self) -> IteratorIF:
         pass

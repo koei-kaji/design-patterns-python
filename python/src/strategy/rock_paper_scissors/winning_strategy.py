@@ -1,14 +1,14 @@
 from random import Random
 from typing import Any, Union
 
-from pydantic import PrivateAttr
+from pydantic import BaseModel, PrivateAttr
 
 from ...common.custom_pydantic.config import BaseFrozenConfig
 from .hand import Hand, Hand_, HandEnum
-from .strategy import StrategyABC
+from .strategy import StrategyIF
 
 
-class WinningStrategy(StrategyABC):
+class WinningStrategy(BaseModel, StrategyIF):
     _won: bool = PrivateAttr(default=False)
     _prev_hand: Hand_ = PrivateAttr()
     _random: Random = PrivateAttr()
@@ -27,5 +27,5 @@ class WinningStrategy(StrategyABC):
     def study(self, win: bool) -> None:
         self._won = win
 
-    class Config(StrategyABC.Config, BaseFrozenConfig):
+    class Config(BaseFrozenConfig):
         pass

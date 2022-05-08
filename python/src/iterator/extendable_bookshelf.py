@@ -4,14 +4,15 @@ from typing import Any, List
 
 from pydantic import PrivateAttr
 
-from src.iterator.iterator import IteratorABC
+from src.iterator.iterator import IteratorIF
 
 from ..common.custom_pydantic.config import BaseConfig
-from .aggregate import AggregateABC
+from ..common.custom_pydantic.model import ABCModel
+from .aggregate import AggregateIF
 from .book import Book
 
 
-class ExtendableBookShelf(AggregateABC):
+class ExtendableBookShelf(ABCModel, AggregateIF):
     _books: List[Book] = PrivateAttr(default=[])
 
     def get_book_at(self, index: int) -> Book:
@@ -26,11 +27,11 @@ class ExtendableBookShelf(AggregateABC):
     def iterator(self) -> ExtendableBookShelfIterator:
         return ExtendableBookShelfIterator(bookshelf=self)
 
-    class Config(AggregateABC.Config, BaseConfig):
+    class Config(ABCModel.Config, BaseConfig):
         pass
 
 
-class ExtendableBookShelfIterator(IteratorABC):
+class ExtendableBookShelfIterator(ABCModel, IteratorIF):
     _bookshelf: ExtendableBookShelf = PrivateAttr()
     _index: int = PrivateAttr(default=0)
 
@@ -47,5 +48,5 @@ class ExtendableBookShelfIterator(IteratorABC):
 
         return book
 
-    class Config(IteratorABC.Config, BaseConfig):
+    class Config(ABCModel.Config, BaseConfig):
         pass

@@ -4,7 +4,7 @@ from src.adapter.delegation_pattern.print import PrintABC as DelegatePrint
 from src.adapter.delegation_pattern.print_banner import (
     PrintBanner as DelegatePrintBanner,
 )
-from src.adapter.inheritance_pattern.print import PrintABC as InheritPrint
+from src.adapter.inheritance_pattern.print import PrintIF as InheritPrint
 from src.adapter.inheritance_pattern.print_banner import (
     PrintBanner as InheritPrintBanner,
 )
