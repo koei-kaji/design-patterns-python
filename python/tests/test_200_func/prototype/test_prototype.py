@@ -1,6 +1,5 @@
 from pytest import CaptureFixture
 
-from src.common.custom_pydantic.types import Char
 from src.prototype.framework.manager import Manager
 from src.prototype.framework.product import ProductABC
 from src.prototype.message_box import MessageBox
@@ -38,8 +37,8 @@ class TestMessageBox:
         SLASH = ("/", "slash", "Hello, slash.")
 
         manager = Manager()
-        manager.register(STRONG[1], MessageBox(decochar=Char(STRONG[0])))
-        manager.register(SLASH[1], MessageBox(decochar=Char(SLASH[0])))
+        manager.register(STRONG[1], MessageBox(decochar=STRONG[0]))
+        manager.register(SLASH[1], MessageBox(decochar=SLASH[0]))
 
         # showcaseに登録されているかどうか
         # pylint: disable=protected-access
@@ -85,8 +84,8 @@ class TestUnderlinePen:
         WEAK = ("-", "weak", "Hello, weak.")
 
         manager = Manager()
-        manager.register(STRONG[1], UnderlinePen(ulchar=Char(STRONG[0])))
-        manager.register(WEAK[1], UnderlinePen(ulchar=Char(WEAK[0])))
+        manager.register(STRONG[1], UnderlinePen(ulchar=STRONG[0]))
+        manager.register(WEAK[1], UnderlinePen(ulchar=WEAK[0]))
 
         # showcaseに登録されているかどうか
         # pylint: disable=protected-access

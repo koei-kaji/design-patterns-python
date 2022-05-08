@@ -5,7 +5,7 @@ from pydantic import StrictStr
 
 from ..common.custom_pydantic.config import BaseFrozenConfig
 from ..common.custom_pydantic.model import ABCModel
-from ..common.custom_pydantic.types import Char
+from ..common.custom_pydantic.types import CharStr
 
 
 class DisplayABC(ABCModel):
@@ -30,7 +30,7 @@ class DisplayABC(ABCModel):
 
 
 class CharDisplay(DisplayABC):
-    char: Char
+    char: CharStr
 
     def open(self) -> None:
         print("<<", end="")

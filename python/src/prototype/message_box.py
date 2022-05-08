@@ -1,9 +1,9 @@
-from ..common.custom_pydantic.types import Char
+from ..common.custom_pydantic.types import CharStr
 from .framework.product import ProductABC
 
 
 class MessageBox(ProductABC):
-    decochar: Char
+    decochar: CharStr
 
     def use(self, string: str) -> None:
         print("")

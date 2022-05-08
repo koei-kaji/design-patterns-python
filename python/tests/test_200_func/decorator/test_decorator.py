@@ -2,7 +2,6 @@ from typing import Final
 
 import pytest
 
-from src.common.custom_pydantic.types import Char
 from src.decorator.display import DisplayABC
 from src.decorator.full_border import FullBorder
 from src.decorator.multi_string_display import MultiStringDisplay
@@ -33,7 +32,7 @@ class TestMultiStringDisplay:
 class TestSideBorder:
     def test_normal(self, display: DisplayABC) -> None:
         print("")
-        disp = SideBorder(display=display, char_border=Char("#"))
+        disp = SideBorder(display=display, char_border="#")
         disp.show()
 
 
@@ -49,7 +48,7 @@ class TestFullBorder:
 class TestUpdownBorder:
     def test_normal(self, display: DisplayABC) -> None:
         print("")
-        disp = UpdownBorder(display=display, char_border=Char("-"))
+        disp = UpdownBorder(display=display, char_border="-")
         disp.show()
 
 
@@ -62,11 +61,11 @@ class TestComplex:
                 display=UpdownBorder(
                     display=SideBorder(
                         display=FullBorder(display=display),
-                        char_border=Char("*"),
+                        char_border="*",
                     ),
-                    char_border=Char("@"),
+                    char_border="@",
                 ),
             ),
-            char_border=Char("/"),
+            char_border="/",
         )
         disp.show()

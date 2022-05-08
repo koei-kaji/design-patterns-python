@@ -1,12 +1,12 @@
 from typing import Optional
 
 from ..common.custom_pydantic.config import BaseFrozenConfig
-from ..common.custom_pydantic.types import Char
+from ..common.custom_pydantic.types import CharStr
 from .border import BorderABC
 
 
 class UpdownBorder(BorderABC):
-    char_border: Char
+    char_border: CharStr
 
     def get_columns(self) -> int:
         return self.display.get_columns()
