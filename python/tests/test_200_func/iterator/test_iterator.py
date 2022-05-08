@@ -5,7 +5,7 @@ import pytest
 from src.iterator.book import Book
 from src.iterator.bookshelf import BookShelf
 from src.iterator.extendable_bookshelf import ExtendableBookShelf
-from src.iterator.iterator import IteratorABC
+from src.iterator.iterator import IteratorIF
 from src.iterator.pythonic_bookshelf import PythonicBookShelf
 
 BOOKS: Final[List[str]] = [
@@ -23,7 +23,7 @@ class TestBookshelfIterator:
             bookshelf.append_book(Book(name=book))
 
         count = 0
-        bookshelf_iter: IteratorABC = bookshelf.iterator()
+        bookshelf_iter: IteratorIF = bookshelf.iterator()
         while bookshelf_iter.has_next():
             bk: Book = cast(Book, bookshelf_iter.next())
             assert bk.name == BOOKS[count]
@@ -46,7 +46,7 @@ class TestExtendableBookshelfIterator:
             bookshelf.append_book(Book(name=book))
 
         count = 0
-        bookshelf_iter: IteratorABC = bookshelf.iterator()
+        bookshelf_iter: IteratorIF = bookshelf.iterator()
         while bookshelf_iter.has_next():
             bk: Book = cast(Book, bookshelf_iter.next())
             assert bk.name == BOOKS[count]
