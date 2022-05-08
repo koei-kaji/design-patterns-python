@@ -1,14 +1,21 @@
 from __future__ import annotations
 
+import re
 from typing import Callable, Iterator, List, TypeVar
 
 from pydantic import ConstrainedStr
 from pydantic.error_wrappers import ValidationError
 
 
-class Char(ConstrainedStr):
+class CharStr(ConstrainedStr):
+    strict = True
     min_length = 1
     max_length = 1
+
+
+class ExtentionStr(ConstrainedStr):
+    strict = True
+    regex = re.compile(r"^\.")
 
 
 ListType = TypeVar("ListType")

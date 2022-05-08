@@ -1,12 +1,12 @@
 from ..common.custom_pydantic.config import BaseFrozenConfig
-from ..common.custom_pydantic.types import Char
+from ..common.custom_pydantic.types import CharStr
 from .display_impl import DisplayImplABC
 
 
 class CharDisplayImpl(DisplayImplABC):
-    head: Char
-    body: Char
-    foot: Char
+    head: CharStr
+    body: CharStr
+    foot: CharStr
 
     def raw_open(self) -> None:
         print(self.head, end="")

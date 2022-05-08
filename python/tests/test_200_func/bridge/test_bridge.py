@@ -7,7 +7,6 @@ from src.bridge.file_display_impl import DEFAULT_ENCODING, FileDisplayImpl
 from src.bridge.increase_display import IncreaseDisplay
 from src.bridge.random_count_display import RandomCountDisplay
 from src.bridge.string_display_impl import StringDisplayImpl
-from src.common.custom_pydantic.types import Char
 from tests.conftest import ChdirToTmpdirFixture
 
 
@@ -88,17 +87,17 @@ class TestIncreaseDisplayWithCharDisplayImpl:
     def test_normal(self) -> None:
         display1 = IncreaseDisplay(
             impl=CharDisplayImpl(
-                head=Char("<"),
-                body=Char("*"),
-                foot=Char(">"),
+                head="<",
+                body="*",
+                foot=">",
             ),
             step=1,
         )
         display2 = IncreaseDisplay(
             impl=CharDisplayImpl(
-                head=Char("|"),
-                body=Char("#"),
-                foot=Char("-"),
+                head="|",
+                body="#",
+                foot="-",
             ),
             step=2,
         )
