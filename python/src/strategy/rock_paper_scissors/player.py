@@ -2,12 +2,12 @@ from pydantic import BaseModel, PrivateAttr, StrictStr
 
 from ...common.custom_pydantic.config import BaseFrozenConfig
 from .hand import Hand_
-from .strategy import StrategyABC
+from .strategy import StrategyIF
 
 
 class Player(BaseModel):
     name: StrictStr
-    strategy: StrategyABC
+    strategy: StrategyIF
     _count_win: int = PrivateAttr(default=0)
     _count_lose: int = PrivateAttr(default=0)
     _count_game: int = PrivateAttr(default=0)
@@ -32,4 +32,4 @@ class Player(BaseModel):
         return f"[{self.name}:{self._count_game} games, {self._count_win} win, {self._count_lose} lose]"
 
     class Config(BaseFrozenConfig):
-        pass
+        arbitrary_types_allowed = True
