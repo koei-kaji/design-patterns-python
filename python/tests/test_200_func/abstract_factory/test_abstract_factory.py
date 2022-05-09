@@ -2,9 +2,9 @@ import pytest
 
 from src.abstract_factory.factory.factory import FactoryABC
 from src.abstract_factory.factory.page import DEFAULT_ENCODING
-from tests.conftest import ChdirToTmpdirFixture
 
 
+@pytest.mark.usefixtures("chdir_to_tmpdir")
 @pytest.mark.parametrize(
     "class_name",
     [
@@ -13,10 +13,7 @@ from tests.conftest import ChdirToTmpdirFixture
     ],
 )
 class TestFactory:
-    # pylint: disable=unused-argument
-    def test_normal(
-        self, chdir_to_tmpdir: ChdirToTmpdirFixture, class_name: str
-    ) -> None:
+    def test_normal(self, class_name: str) -> None:
         factory = FactoryABC.get_factory(class_name)
 
         link_asahi = factory.create_link("朝日新聞", "http://www.asahi.com/")
@@ -49,10 +46,7 @@ class TestFactory:
             print("")
             print("".join(f.readlines()))
 
-    # pylint: disable=unused-argument
-    def test_yahoo(
-        self, chdir_to_tmpdir: ChdirToTmpdirFixture, class_name: str
-    ) -> None:
+    def test_yahoo(self, class_name: str) -> None:
         factory = FactoryABC.get_factory(class_name)
         page = factory.create_yahoo_page()
         result = page.output()

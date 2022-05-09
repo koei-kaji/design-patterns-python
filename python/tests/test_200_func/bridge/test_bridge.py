@@ -1,5 +1,7 @@
 from typing import Final
 
+import pytest
+
 from src.bridge.char_display_impl import CharDisplayImpl
 from src.bridge.count_display import CountDisplay
 from src.bridge.display import Display
@@ -7,7 +9,6 @@ from src.bridge.file_display_impl import DEFAULT_ENCODING, FileDisplayImpl
 from src.bridge.increase_display import IncreaseDisplay
 from src.bridge.random_count_display import RandomCountDisplay
 from src.bridge.string_display_impl import StringDisplayImpl
-from tests.conftest import ChdirToTmpdirFixture
 
 
 class TestDisplayWithStringDisplayImpl:
@@ -52,9 +53,9 @@ class TestRandomCountDisplayWithStringDisplayImpl:
         display.display_multi_random(5)
 
 
+@pytest.mark.usefixtures("chdir_to_tmpdir")
 class TestCountDisplayWithFileDisplayImpl:
-    # pylint: disable=unused-argument
-    def test_normal(self, chdir_to_tmpdir: ChdirToTmpdirFixture) -> None:
+    def test_normal(self) -> None:
         DUMMY_FILENAME: Final[str] = "dummy.txt"
         with open(DUMMY_FILENAME, mode="w", encoding=DEFAULT_ENCODING) as f:
             f.write(
@@ -79,8 +80,6 @@ class TestCountDisplayWithFileDisplayImpl:
         # NOTE: テストが面倒なのでとりあえず標準出力
         print("")
         display.display_multi(2)
-
-    # pylint: enable=unused-argument
 
 
 class TestIncreaseDisplayWithCharDisplayImpl:

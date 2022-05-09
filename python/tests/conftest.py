@@ -48,10 +48,6 @@ def assert_pydantic_config(
     assert config_a.smart_union == config_b.smart_union
 
 
-class ChdirToTmpdirFixture:
-    pass
-
-
 @pytest.fixture(scope="function")
 def chdir_to_tmpdir(
     tmpdir: LocalPath, monkeypatch: MonkeyPatch

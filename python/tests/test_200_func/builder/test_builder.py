@@ -6,7 +6,6 @@ from src.builder.director import Director
 from src.builder.html_builder import DEFAULT_ENCODING, HTMLBuilder
 from src.builder.text_builder import TextBuilder
 from src.builder.tk_builder import TkBuilder
-from tests.conftest import ChdirToTmpdirFixture
 
 
 class TestTextBuilder:
@@ -20,9 +19,9 @@ class TestTextBuilder:
         print(result)
 
 
+@pytest.mark.usefixtures("chdir_to_tmpdir")
 class TestHTMLBuilder:
-    # pylint: disable=unused-argument
-    def test_normal(self, chdir_to_tmpdir: ChdirToTmpdirFixture) -> None:
+    def test_normal(self) -> None:
         html_builder = HTMLBuilder()
         director = Director(builder=html_builder)
         director.construct_()
