@@ -1,0 +1,3 @@
+ned@stark.com=Ned Stark
+robb@stark.com=Robb Stark
+sansa@stark.com=Sansa Stark
