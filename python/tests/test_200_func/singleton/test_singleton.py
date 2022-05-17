@@ -1,3 +1,5 @@
+from typing import cast
+
 import pytest
 from pytest import CaptureFixture
 
@@ -14,12 +16,12 @@ class TestBaseSingleton:
 
     def test_exc_instantiation_error(self) -> None:
         # pylint: disable=unused-import
-        from src.singleton.singleton import Singleton, _Singleton
+        from src.singleton.singleton import Singleton
 
         # pylint: enable=unused-import
 
         with pytest.raises(InstantiationError):
-            _Singleton()
+            Singleton()
 
 
 class TestTicketMaker:
@@ -28,8 +30,10 @@ class TestTicketMaker:
 
         DEFAULT_TICKET_NUMBER = 1000
         assert TicketMaker.get_instance() == TicketMaker.get_instance()
-        assert TicketMaker.get_next_ticket_number() == DEFAULT_TICKET_NUMBER + 0
-        assert TicketMaker.get_next_ticket_number() == DEFAULT_TICKET_NUMBER + 1
+
+        ticket_maker = cast(TicketMaker, TicketMaker.get_instance())
+        assert ticket_maker.get_next_ticket_number() == DEFAULT_TICKET_NUMBER + 0
+        assert ticket_maker.get_next_ticket_number() == DEFAULT_TICKET_NUMBER + 1
 
 
 class TestTripleton:
@@ -47,8 +51,8 @@ class TestTripleton:
 
     def test_exc_instantiation_error(self) -> None:
         # pylint: disable=unused-import
-        from src.singleton.tripleton import Tripleton, _Tripleton
+        from src.singleton.tripleton import Tripleton
 
         # pylint: enable=unused-import
         with pytest.raises(InstantiationError):
-            _Tripleton(_id=3)
+            Tripleton(_id=3)

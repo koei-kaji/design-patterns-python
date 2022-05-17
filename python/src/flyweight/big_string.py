@@ -1,4 +1,4 @@
-from typing import Any, List
+from typing import Any, List, cast
 
 from pydantic import BaseModel, PrivateAttr
 
@@ -12,7 +12,7 @@ class BigString(BaseModel):
     def __init__(self, string: str, is_shared: bool = True, **data: Any) -> None:
         super().__init__(**data)
         if is_shared:
-            factory = BigCharFactory
+            factory = cast(BigCharFactory, BigCharFactory.get_instance())
             for char in string:
                 self._big_chars.append(factory.get_big_char(char))
         else:

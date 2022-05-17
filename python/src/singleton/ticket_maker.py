@@ -4,7 +4,7 @@ from ..common.custom_pydantic.config import BaseConfig
 from ._singleton import BaseSingleton
 
 
-class _TicketMaker(BaseSingleton):
+class TicketMaker(BaseSingleton):
     _ticket: int = PrivateAttr(default=1000)
 
     def get_next_ticket_number(self) -> int:
@@ -16,4 +16,4 @@ class _TicketMaker(BaseSingleton):
         pass
 
 
-TicketMaker = _TicketMaker()
+TicketMaker()

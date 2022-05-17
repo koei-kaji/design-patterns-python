@@ -8,11 +8,11 @@ from ..common.custom_pydantic.config import BaseFrozenConfig
 from .exc import InstantiationError
 
 
-class _Tripleton(BaseModel):
+class Tripleton(BaseModel):
     _id: int = PrivateAttr()
-    _tripleton: List[_Tripleton] = []
+    _tripleton: List[Tripleton] = []
 
-    def __new__(cls, _id: int, **_: Any) -> _Tripleton:
+    def __new__(cls, _id: int, **_: Any) -> Tripleton:
         if len(cls._tripleton) >= 3:
             raise InstantiationError(
                 "Instance of this class has been already created three times"
@@ -25,9 +25,10 @@ class _Tripleton(BaseModel):
         self._id = _id
         print(f"The instance id={self._id}({id(self._tripleton[-1])}) is created")
 
-    def get_instance(self, _id: int) -> _Tripleton:
-        print(self._tripleton[_id])
-        return self._tripleton[_id]
+    @classmethod
+    def get_instance(cls, _id: int) -> Tripleton:
+        print(cls._tripleton[_id])
+        return cls._tripleton[_id]
 
     def __str__(self) -> str:
         return f"[Triple id={self._id}({id(self)})]"
@@ -36,4 +37,4 @@ class _Tripleton(BaseModel):
         pass
 
 
-Tripleton = [_Tripleton(_id=i) for i in range(3)][0]
+_ = [Tripleton(_id=i) for i in range(3)]

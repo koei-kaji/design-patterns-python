@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import tkinter as tk
-from typing import Any, Callable, Optional, TypeVar
+from typing import Any, Callable, Optional, TypeVar, cast
 
 from src.state.state import DayState, StateIF, UrgentState
 
@@ -34,7 +34,7 @@ class SafeTk(tk.Tk, ContextIF):
         use: Optional[str] = None,
     ):
         super().__init__(screenName, baseName, className, useTk, sync, use)
-        self._state = DayState
+        self._state = cast(StateIF, DayState.get_instance())
         self._clock_var = tk.StringVar()
         self._clock_label = tk.Label(
             self, textvariable=self._clock_var, width=30, anchor=tk.W
@@ -124,9 +124,9 @@ class SafeTk(tk.Tk, ContextIF):
 
     @moveto_bottom
     def change_state(self, state: StateIF) -> None:
-        if self._state is UrgentState:
+        if id(self._state) == id(UrgentState.get_instance()):
             print("非常時が解除されました")
-        if type(state) is not type(self._state):
+        if id(state) == id(self._state):
             print(f"{self._state}から{state}へ状態が変化しました")
         self._state = state
 

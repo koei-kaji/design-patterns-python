@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import abc
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, cast
 
 from ..common.model import Interface
 
@@ -37,14 +37,14 @@ class StateIF(Interface):
 
 def _switch_context_by_hour(context: ContextIF, hour: int) -> None:
     if 12 <= hour < 13:
-        context.change_state(NoonState)
+        context.change_state(cast(StateIF, NoonState.get_instance()))
     elif 9 <= hour < 17:
-        context.change_state(DayState)
+        context.change_state(cast(StateIF, DayState.get_instance()))
     elif hour < 9 or 17 <= hour:
-        context.change_state(NightState)
+        context.change_state(cast(StateIF, NightState.get_instance()))
 
 
-class _DayState(BaseSingleton, StateIF):
+class DayState(BaseSingleton, StateIF):
     def do_clock(self, context: ContextIF, hour: int) -> None:
         _switch_context_by_hour(context, hour)
 
@@ -53,7 +53,7 @@ class _DayState(BaseSingleton, StateIF):
 
     def do_alarm(self, context: ContextIF) -> None:
         context.call_security_center("非常ベル（昼間）")
-        context.change_state(UrgentState)
+        context.change_state(cast(StateIF, UrgentState.get_instance()))
 
     def do_phone(self, context: ContextIF) -> None:
         context.call_security_center("通常の通話（昼間）")
@@ -68,7 +68,7 @@ class _DayState(BaseSingleton, StateIF):
         pass
 
 
-class _NightState(BaseSingleton, StateIF):
+class NightState(BaseSingleton, StateIF):
     def do_clock(self, context: ContextIF, hour: int) -> None:
         _switch_context_by_hour(context, hour)
 
@@ -77,7 +77,7 @@ class _NightState(BaseSingleton, StateIF):
 
     def do_alarm(self, context: ContextIF) -> None:
         context.call_security_center("非常ベル（夜間）")
-        context.change_state(UrgentState)
+        context.change_state(cast(StateIF, UrgentState.get_instance()))
 
     def do_phone(self, context: ContextIF) -> None:
         context.record_log("夜間の通常録音")
@@ -92,7 +92,7 @@ class _NightState(BaseSingleton, StateIF):
         pass
 
 
-class _NoonState(BaseSingleton, StateIF):
+class NoonState(BaseSingleton, StateIF):
     def do_clock(self, context: ContextIF, hour: int) -> None:
         _switch_context_by_hour(context, hour)
 
@@ -101,7 +101,7 @@ class _NoonState(BaseSingleton, StateIF):
 
     def do_alarm(self, context: ContextIF) -> None:
         context.call_security_center("非常ベル（昼食時）")
-        context.change_state(UrgentState)
+        context.change_state(cast(StateIF, UrgentState.get_instance()))
 
     def do_phone(self, context: ContextIF) -> None:
         context.record_log("昼食時の通常録音")
@@ -116,7 +116,7 @@ class _NoonState(BaseSingleton, StateIF):
         pass
 
 
-class _UrgentState(BaseSingleton, StateIF):
+class UrgentState(BaseSingleton, StateIF):
     def do_clock(self, context: ContextIF, hour: int) -> None:
         pass
 
@@ -139,7 +139,7 @@ class _UrgentState(BaseSingleton, StateIF):
         pass
 
 
-DayState = _DayState()
-NightState = _NightState()
-NoonState = _NoonState()
-UrgentState = _UrgentState()
+DayState()
+NightState()
+NoonState()
+UrgentState()
