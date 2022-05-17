@@ -18,5 +18,6 @@ class BaseSingleton(BaseModel):
         super().__init__(**data)
         print("インスタンスを生成しました")
 
-    def get_instance(self) -> BaseSingleton:
-        return self._singleton
+    @classmethod
+    def get_instance(cls) -> BaseSingleton:
+        return cls._singleton

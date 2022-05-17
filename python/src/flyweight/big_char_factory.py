@@ -7,7 +7,7 @@ from ..singleton._singleton import BaseSingleton
 from .big_char import BigChar
 
 
-class _BigCharFactory(BaseSingleton):
+class BigCharFactory(BaseSingleton):
     _lock = threading.Lock()
     _pool: Dict[str, BigChar] = PrivateAttr(default={})
 
@@ -21,4 +21,4 @@ class _BigCharFactory(BaseSingleton):
             return big_char
 
 
-BigCharFactory = _BigCharFactory()
+BigCharFactory()
