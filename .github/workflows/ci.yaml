@@ -66,6 +66,12 @@ jobs:
         run: |
           make test
 
+      - name: Safety Check with safety
+        id: safety-check-with-safety
+        working-directory: ${{ env.WORKDIR }}
+        run: |
+          make safety-check
+
       # # NOTE: https://github.com/marketplace/actions/hadolint-action
       # # NOTE: use official github action cause it is simpler
       # - name: Lint dockerfile
