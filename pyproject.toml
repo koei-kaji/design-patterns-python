@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "gof_design_patterns"
+name = "design_patterns_python"
 version = "0.1.0"
 description = ""
-authors = ["koei-kaji <koei.kaji@gmail.com>"]
+authors = ["koei-kaji"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
