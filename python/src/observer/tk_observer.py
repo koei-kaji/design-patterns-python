@@ -51,7 +51,7 @@ class _LabelObserver(tk.Label, ObserverIF):
             cnf = {}
         super().__init__(master, cnf, **kw)
         self._var = tk.StringVar()
-        self["textvariable"] = self._var
+        self.configure(textvariable=self._var)
 
     def subscribe(self, generator: NumberGeneratorABC) -> None:
         number = generator.get_number()
