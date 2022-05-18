@@ -1,7 +1,7 @@
 # design-patterns-python
 
 A collection of design patterns in Python.  
-Source codes are independently rewritten from a [Hiroshi Yuki's book (増補改訂版Java言語で学ぶデザインパターン入門)](https://www.amazon.co.jp/dp/4797327030) that is mentioned in Java.  
+Source codes are independently rewritten from [the Hiroshi Yuki's book (増補改訂版Java言語で学ぶデザインパターン入門)](https://www.amazon.co.jp/dp/4797327030) that is mentioned in Java.  
 Therefore, This repository is not described the detail of the process not to infringe on his writings and interests.  
 
 ## Built With
