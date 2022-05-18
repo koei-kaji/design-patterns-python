@@ -5,8 +5,8 @@ on:
     branches:
       - main
     paths:
-      - "python/**"
-      - ".github/workflows/ci-python.yaml"
+      - "**"
+      - ".github/workflows/ci.yaml"
       - "!**.md"
 
 jobs:
