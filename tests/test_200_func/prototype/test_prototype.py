@@ -1,3 +1,5 @@
+from typing import Final, Tuple
+
 from pytest import CaptureFixture
 
 from src.prototype.framework.manager import Manager
@@ -33,8 +35,8 @@ class TestMessageBox:
         )
 
     def test_normal(self, capfd: CaptureFixture[str]) -> None:
-        STRONG = ("*", "strong", "Hello, strong.")
-        SLASH = ("/", "slash", "Hello, slash.")
+        STRONG: Final[Tuple[str, str, str]] = ("*", "strong", "Hello, strong.")
+        SLASH: Final[Tuple[str, str, str]] = ("/", "slash", "Hello, slash.")
 
         manager = Manager()
         manager.register(STRONG[1], MessageBox(decochar=STRONG[0]))
@@ -58,6 +60,17 @@ class TestMessageBox:
         assert id(product_strong_2nd) != id(product_strong)
         assert id(product_slash_2nd) != id(product_slash)
 
+    def test_normal_stdout(self) -> None:
+        STRONG: Final[Tuple[str, str, str]] = ("*", "strong", "Hello, strong.")
+        SLASH: Final[Tuple[str, str, str]] = ("/", "slash", "Hello, slash.")
+
+        manager = Manager()
+        manager.register(STRONG[1], MessageBox(decochar=STRONG[0]))
+        manager.register(SLASH[1], MessageBox(decochar=SLASH[0]))
+
+        manager.create(STRONG[1]).use(STRONG[2])
+        manager.create(SLASH[1]).use(SLASH[2])
+
 
 class TestUnderlinePen:
     def assert_capture(
@@ -80,8 +93,8 @@ class TestUnderlinePen:
         )
 
     def test_normal(self, capfd: CaptureFixture[str]) -> None:
-        STRONG = ("=", "strong", "Hello, strong.")
-        WEAK = ("-", "weak", "Hello, weak.")
+        STRONG: Final[Tuple[str, str, str]] = ("=", "strong", "Hello, strong.")
+        WEAK: Final[Tuple[str, str, str]] = ("-", "weak", "Hello, weak.")
 
         manager = Manager()
         manager.register(STRONG[1], UnderlinePen(ulchar=STRONG[0]))
@@ -104,3 +117,15 @@ class TestUnderlinePen:
         product_slash_2nd = manager.create(WEAK[1])
         assert id(product_strong_2nd) != id(product_strong)
         assert id(product_slash_2nd) != id(product_weak)
+
+    def test_normal_stdout(self) -> None:
+        STRONG: Final[Tuple[str, str, str]] = ("=", "strong", "Hello, strong.")
+        WEAK: Final[Tuple[str, str, str]] = ("-", "weak", "Hello, weak.")
+
+        manager = Manager()
+        manager.register(STRONG[1], UnderlinePen(ulchar=STRONG[0]))
+        manager.register(WEAK[1], UnderlinePen(ulchar=WEAK[0]))
+
+        # 出力内容の確認
+        manager.create(STRONG[1]).use(STRONG[2])
+        manager.create(WEAK[1]).use(WEAK[2])

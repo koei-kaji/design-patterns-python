@@ -1,3 +1,5 @@
+from typing import Final
+
 import pytest
 from pydantic import ValidationError
 from pytest import CaptureFixture
@@ -12,6 +14,11 @@ class TestCharDisplay:
         display.display()
         assert_capture_str(capfd, ("<<HHHHH>>\n", ""))
 
+    def test_normal_stdout(self) -> None:
+        display = CharDisplay(char="H")
+        print("")
+        display.display()
+
     @pytest.mark.parametrize(("char"), [("", "two")])
     def test_exc_not_char(self, char: str) -> None:
         with pytest.raises(ValidationError):
@@ -20,8 +27,8 @@ class TestCharDisplay:
 
 class TestStringDisplay:
     def test_normal(self, capfd: CaptureFixture[str]) -> None:
-        string = "Hello, World!"
-        display = StringDisplay(string=string)
+        STRING: Final[str] = "Hello, World!"
+        display = StringDisplay(string=STRING)
         display.display()
         assert_capture_str(
             capfd,
@@ -29,12 +36,18 @@ class TestStringDisplay:
                 "\n".join(
                     [
                         "",
-                        f"+{'-' * len(string)}+",
-                        *[f"|{string}|" for _ in range(5)],
-                        f"+{'-' * len(string)}+",
+                        f"+{'-' * len(STRING)}+",
+                        *[f"|{STRING}|" for _ in range(5)],
+                        f"+{'-' * len(STRING)}+",
                         "",
                     ]
                 ),
                 "",
             ),
         )
+
+    def test_normal_stdout(self) -> None:
+        string = "Hello, World!"
+        display = StringDisplay(string=string)
+        print("")
+        display.display()

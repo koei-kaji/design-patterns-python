@@ -1,24 +1,19 @@
 from typing import cast
 
 import pytest
-from pytest import CaptureFixture
 
 from src.singleton.exc import InstantiationError
-from tests.conftest import assert_capture_str
+from src.singleton.singleton import Singleton
+from src.singleton.ticket_maker import TicketMaker
+from src.singleton.tripleton import Tripleton
 
 
 class TestBaseSingleton:
-    def test_normal(self, capfd: CaptureFixture[str]) -> None:
-        from src.singleton.singleton import Singleton
+    def test_normal(self) -> None:
 
-        assert_capture_str(capfd, ("インスタンスを生成しました\n", ""))
         assert Singleton.get_instance() == Singleton.get_instance()
 
     def test_exc_instantiation_error(self) -> None:
-        # pylint: disable=unused-import
-        from src.singleton.singleton import Singleton
-
-        # pylint: enable=unused-import
 
         with pytest.raises(InstantiationError):
             Singleton()
@@ -26,7 +21,6 @@ class TestBaseSingleton:
 
 class TestTicketMaker:
     def test_normal(self) -> None:
-        from src.singleton.ticket_maker import TicketMaker
 
         DEFAULT_TICKET_NUMBER = 1000
         assert TicketMaker.get_instance() == TicketMaker.get_instance()
@@ -38,7 +32,6 @@ class TestTicketMaker:
 
 class TestTripleton:
     def test_normal(self) -> None:
-        from src.singleton.tripleton import Tripleton
 
         assert Tripleton.get_instance(0) == Tripleton.get_instance(0)
         assert Tripleton.get_instance(1) == Tripleton.get_instance(1)
@@ -50,9 +43,5 @@ class TestTripleton:
         # pylint: enable=protected-access
 
     def test_exc_instantiation_error(self) -> None:
-        # pylint: disable=unused-import
-        from src.singleton.tripleton import Tripleton
-
-        # pylint: enable=unused-import
         with pytest.raises(InstantiationError):
             Tripleton(_id=3)
