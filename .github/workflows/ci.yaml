@@ -1,58 +1,70 @@
-name: CI For Javascript ES2015
+name: CI
 
 on:
   pull_request:
     branches:
       - main
     paths:
-      - "js/es2015/**"
-      - ".github/workflows/ci-js-es2015.yaml"
+      - "python/**"
+      - ".github/workflows/ci-python.yaml"
       - "!**.md"
 
 jobs:
   check-code:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./js/es2015/
     strategy:
       matrix:
-        node-version: [16.14]
+        python-version: [3.9.11]
+    env:
+      WORKDIR: ./
+      PIP_VERSION: 21.2.4
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up Node ${{ matrix.node-version }}
-        id: setup-node
-        uses: actions/setup-node@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        id: setup-python
+        uses: actions/setup-python@v2
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: npm
-          cache-dependency-path: "**/package-lock.json"
+          python-version: ${{ matrix.python-version }}
+
+      # NOTE: https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-commands-for-github-actions#adding-a-system-path
+      - name: Install poetry
+        id: install-poetry
+        run: |
+          python -m pip install --upgrade pip==${{ env.PIP_VERSION }}
+          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+          echo "$HOME/.poetry/bin" >> $GITHUB_PATH
+
+      - name: Set up cache
+        id: set-up-cache
+        uses: actions/cache@v2
+        with:
+          path: .venv
+          key: ${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
 
       - name: Install dependencies
         id: install-dependencies
+        working-directory: ${{ env.WORKDIR }}
         run: |
-          npm install
+          poetry install
 
-      - name: Check format js code
-        id: check-format-js-code
+      - name: Check format python code
+        id: check-format-python-code
+        working-directory: ${{ env.WORKDIR }}
         run: |
           make format-check
 
-      - name: Check lint js code
-        id: check-lint-js-code
+      - name: Check lint python code
+        id: check-lint-python-code
+        working-directory: ${{ env.WORKDIR }}
         run: |
           make lint
 
-      - name: Test with jasmine
-        id: test-with-jasmine
+      - name: Test with pytest
+        id: test-with-pytest
+        working-directory: ${{ env.WORKDIR }}
         run: |
           make test
-
-      - name: Build with babel
-        id: build-with-babel
-        run: |
-          make build
 
       # # NOTE: https://github.com/marketplace/actions/hadolint-action
       # # NOTE: use official github action cause it is simpler
