@@ -19,6 +19,11 @@ lint:
 test:
 	@poetry run pytest
 
+.PHONY: safety-check
+safety-check:
+	@poetry export --dev --format=requirements.txt --output=requirements.txt
+	@poetry run safety check --file=requirements.txt
+	@rm requirements.txt
+
 .PHONY: pre-commit
-pre-commit: format lint test
-	
+pre-commit: format lint test safety-check
