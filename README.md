@@ -1,1 +1,1 @@
-# gof-design-patterns
+# design-patterns-python
