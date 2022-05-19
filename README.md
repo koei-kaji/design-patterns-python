@@ -1,8 +1,19 @@
 # design-patterns-python
 
 A collection of design patterns in Python.  
-Source codes are independently rewritten from [the Hiroshi Yuki's book (増補改訂版Java言語で学ぶデザインパターン入門)](https://www.amazon.co.jp/dp/4797327030) that is mentioned in Java.  
+Source codes are independently rewritten from [the Mr. Hiroshi Yuki's book (増補改訂版Java言語で学ぶデザインパターン入門)](https://www.amazon.co.jp/dp/4797327030) that is mentioned in Java.  
 Therefore, This repository is not described the detail of the process not to infringe on his writings and interests.  
+
+## How to run
+
+Just running individual tests.  
+
+```bash
+$./run.sh <pattern>
+
+# Example)
+./run.sh iterator
+```
 
 ## Built With
 
@@ -28,6 +39,8 @@ Therefore, This repository is not described the detail of the process not to inf
 - [pyenv]: Python Version Management
 - [poetry]: Dependency Management for Python
 - make: Build tool
+- GUI
+  - Because of tkinter (GUI Application)  
 
 ### Installing
 
@@ -71,7 +84,9 @@ We use [SemVer] for versioning
 
 - [koei-kaji]
 
-## License (Hiroshi Yuki)
+## License (Mr. Hiroshi Yuki)
+
+Quoted from the source codes attached to [the book](https://www.amazon.co.jp/dp/4797327030).
 
 ```txt
 MIT License
