@@ -6,7 +6,7 @@ Therefore, This repository is not described the detail of the process not to inf
 
 ## How to run
 
-Just running individual tests.  
+Just running individual tests by pattern.  
 
 ```bash
 $./run.sh <pattern>
