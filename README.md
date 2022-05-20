@@ -12,8 +12,12 @@ Just running individual tests by pattern.
 $./run.sh <pattern>
 
 # Example)
-./run.sh iterator
+./run.sh observer
 ```
+
+### Example
+
+![example](./docs/img/example.gif)
 
 ## Built With
 
