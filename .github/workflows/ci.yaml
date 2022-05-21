@@ -6,7 +6,12 @@ on:
       - main
     paths:
       - "**"
-      - ".github/workflows/ci.yaml"
+      - "!**.md"
+  push:
+    brances:
+      - main
+    paths:
+      - "**"
       - "!**.md"
 
 jobs:

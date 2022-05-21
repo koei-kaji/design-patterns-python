@@ -8,6 +8,11 @@ on:
       - main
     paths:
       - ".github/workflows/check-safety.yaml"
+  push:
+    brances:
+      - main
+    paths:
+      - ".github/workflows/check-safety.yaml"
 
 jobs:
   check-code:
