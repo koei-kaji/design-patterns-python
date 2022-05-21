@@ -1,5 +1,11 @@
 # design-patterns-python
 
+![CI](https://github.com/koei-kaji/design-patterns-python/actions/workflows/ci.yaml/badge.svg)
+![check-safety](https://github.com/koei-kaji/design-patterns-python/actions/workflows/check-safety.yaml/badge.svg)
+[![Python 3.9](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/downloads/release/python-390/)
+![pytest coverage](./coverage.svg)
+![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)
+
 A collection of design patterns in Python.  
 Source codes are independently rewritten from [the Mr. Hiroshi Yuki's book (増補改訂版Java言語で学ぶデザインパターン入門)](https://www.amazon.co.jp/dp/4797327030) that is mentioned in Java.  
 Therefore, This repository is not described the detail of the process not to infringe on his writings and interests.  
@@ -35,6 +41,7 @@ $./run.sh <pattern>
 - [pytest-cov]
 - [pylint]
 - [safety]
+- [coverage-badge]
 
 ## Getting Started
 
@@ -126,6 +133,7 @@ SOFTWARE.
 [pytest-cov]: https://github.com/pytest-dev/pytest-cov
 [pylint]: https://github.com/PyCQA/pylint
 [safety]: https://github.com/pyupio/safety
+[coverage-badge]: https://github.com/dbrgn/coverage-badge
 [pyenv]: https://github.com/pyenv/pyenv
 [poetry]: https://github.com/python-poetry/poetry
 [SemVer]: https://semver.org/
