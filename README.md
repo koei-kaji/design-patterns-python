@@ -2,7 +2,7 @@
 
 ![CI](https://github.com/koei-kaji/design-patterns-python/actions/workflows/ci.yaml/badge.svg?branch=main&event=push)
 ![check-safety](https://github.com/koei-kaji/design-patterns-python/actions/workflows/check-safety.yaml/badge.svg?branch=main&event=push)
-[![Python 3.9](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/downloads/release/python-390/)
+[![Python 3.9.11](https://img.shields.io/badge/python-3.9.11-blue.svg)](https://www.python.org/downloads/release/python-3911/)
 ![pytest coverage](./coverage.svg)
 ![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)
 
