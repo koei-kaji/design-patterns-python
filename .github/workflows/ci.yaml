@@ -66,8 +66,8 @@ jobs:
         run: |
           make test
 
-      - name: Safety Check with safety
-        id: safety-check-with-safety
+      - name: Check Safety with safety
+        id: check-safety-with-safety
         working-directory: ${{ env.WORKDIR }}
         run: |
           make safety-check

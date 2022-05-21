@@ -18,6 +18,7 @@ lint:
 .PHONY: test
 test:
 	@poetry run pytest
+	@poetry run coverage-badge -f -o coverage.svg
 
 .PHONY: safety-check
 safety-check:
