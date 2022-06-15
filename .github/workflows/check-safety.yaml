@@ -8,6 +8,12 @@ on:
       - main
     paths:
       - ".github/workflows/check-safety.yaml"
+  push:
+    branches:
+      - main
+    paths:
+      - "**"
+      - "!*.md"
 
 jobs:
   check-code:

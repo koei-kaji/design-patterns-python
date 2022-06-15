@@ -1,9 +1,7 @@
 # design-patterns-python
 
-![CI](https://github.com/koei-kaji/design-patterns-python/actions/workflows/ci.yaml/badge.svg?branch=main)
-![check-safety](https://github.com/koei-kaji/design-patterns-python/actions/workflows/check-safety.yaml/badge.svg?branch=main)
-[![Python 3.9.11](https://img.shields.io/badge/python-3.9.11-blue.svg)](https://www.python.org/downloads/release/python-3911/)
-![pytest coverage](./coverage.svg)
+[![CI](https://github.com/koei-kaji/design-patterns-python/actions/workflows/ci.yaml/badge.svg)](https://github.com/koei-kaji/design-patterns-python/actions/workflows/ci.yaml)
+[![Periodic safety check](https://github.com/koei-kaji/design-patterns-python/actions/workflows/check-safety.yaml/badge.svg)](https://github.com/koei-kaji/design-patterns-python/actions/workflows/check-safety.yaml)![pytest coverage](./coverage.svg)
 ![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)
 
 A collection of design patterns in Python.  
